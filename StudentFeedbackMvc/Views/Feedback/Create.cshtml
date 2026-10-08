@@ -1,0 +1,62 @@
+﻿@model StudentFeedbackMvc.Models.Feedback
+
+@{
+    ViewBag.Title = "Create Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Submit Your Feedback</h2>
+
+@using (Html.BeginForm("Create", "Feedback", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_StudentInfo")
+
+    <div class="form-container">
+        <table class="feedback-form">
+            <tr>
+                <td>@Html.LabelFor(model => model.EnrollmentNo)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.EnrollmentNo)
+                    @Html.ValidationMessageFor(model => model.EnrollmentNo, "", new { @class = "error-message" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.StudentName)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.StudentName)
+                    @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "error-message" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Subject)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.Subject)
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "error-message" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Rating)</td>
+                <td>
+                    @Html.DropDownListFor(model => model.Rating, new SelectList(new[] { 1, 2, 3, 4, 5 }), "-- Select Rating --")
+                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "error-message" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Comments)</td>
+                <td>
+                    @Html.TextAreaFor(model => model.Comments, new { rows = 5, cols = 40 })
+                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "error-message" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Submit Feedback" class="btn-submit" />
+                    @Html.ActionLink("Cancel", "Index", "Feedback", new { @class = "btn-cancel" })
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+    
